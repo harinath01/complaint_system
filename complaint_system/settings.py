@@ -29,7 +29,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["47dc-2409-408d-3c03-1bc1-d0aa-3d44-3898-aaa1.ngrok-free.app"]
 
 
 # Application definition
@@ -137,3 +137,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "/admin/login/"
+CSRF_TRUSTED_ORIGINS=["https://47dc-2409-408d-3c03-1bc1-d0aa-3d44-3898-aaa1.ngrok-free.app"]
