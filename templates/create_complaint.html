@@ -1,167 +1,80 @@
+{% load widget_tweaks %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Create Complaint</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/forms@0.5.7/src/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-    <style>
-      .-z-1 {
-        z-index: -1;
-      }
-
-      .origin-0 {
-        transform-origin: 0%;
-      }
-
-      input:focus ~ label,
-      input:not(:placeholder-shown) ~ label,
-      textarea:focus ~ label,
-      textarea:not(:placeholder-shown) ~ label,
-      select:focus ~ label,
-      select:not([value=""]):valid ~ label {
-        /* @apply transform; scale-75; -translate-y-6; */
-        --tw-translate-x: 0;
-        --tw-translate-y: 0;
-        --tw-rotate: 0;
-        --tw-skew-x: 0;
-        --tw-skew-y: 0;
-        transform: translateX(var(--tw-translate-x))
-          translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
-          skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-          scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-        --tw-scale-x: 0.75;
-        --tw-scale-y: 0.75;
-        --tw-translate-y: -1.5rem;
-      }
-
-      input:focus ~ label,
-      select:focus ~ label {
-        /* @apply text-black; left-0; */
-        --tw-text-opacity: 1;
-        color: rgba(0, 0, 0, var(--tw-text-opacity));
-        left: 0px;
-      }
-    </style>
+    <title>Complaint</title>
   </head>
-  <body class="bg-gray-100">
-    {% if messages %}
-    <div
-      class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-      role="alert"
-    >
-      <strong class="font-bold">Success!</strong>
+  <body class="bg-gray-200">
+    <div class="messages">
       {% for message in messages %}
-      <span class="block sm:inline"> {{ message }}</span>
+      <div
+        class="{% if message.tags == 'success'%}bg-blue-500{% else%}bg-red-500{% endif %} text-white text-md p-4"
+      >
+        {{ message }}
+      </div>
       {% endfor %}
     </div>
-    {% endif %}
-
-    <div class="min-h-screen bg-gray-100 p-0 sm:p-12">
-      <div
-        class="mx-auto max-w-md px-6 py-12 bg-white border-0 shadow-lg sm:rounded-3xl"
+    <div class="form-container bg-white p-4 rounded-lg max-w-md mx-auto mt-10">
+      <form
+        class="mb-3"
+        id="form"
+        method="post"
+        action="{% url 'create_complaint' %}"
       >
-        <h1 class="text-2xl font-bold mb-8">Create Complaint</h1>
-        <form id="form" method="post" action="{% url 'create_complaint' %}">
-          {% csrf_token %}
-          <div class="relative z-0 w-full mb-5">
-            <input
-              type="text"
-              name="student_id"
-              id="id_student_id"
-              placeholder=" "
-              class="pt-3 pb-2 pr-12 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            />
-            <button type="button" onclick="openBarcodeScanner()">
-              <span class="absolute top-0 right-0 mt-3 mr-4 text-blue-400"
-                >scan</span
-              >
-            </button>
-
-            <label
-              for="id_student_id"
-              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >Student ID</label
-            >
-            <span class="text-sm text-red-600 hidden" id="error"
-              >Student ID is required</span
-            >
-          </div>
-          <div
-            id="scanner-container"
-            class="hidden"
-            style="height: 240px"
-          ></div>
-
-          <div class="relative z-0 w-full mb-10">
-            <textarea
-              type="text"
-              name="description"
-              id="id_description"
-              placeholder=" "
-              class="pt-3 pb-2 pr-12 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-            ></textarea>
-            <label
-              for="id_description"
-              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
-              >Description</label
-            >
-          </div>
-          <fieldset class="relative z-0 w-full p-px mb-5">
-            <legend
-              class="absolute text-gray-500 transform scale-75 -top-3 origin-0"
-            >
-              Severity Level
-            </legend>
-            <div class="block pt-3 pb-2 space-x-4">
-              <label>
-                <input
-                  type="radio"
-                  name="severity_level"
-                  id="id_low"
-                  value="low"
-                  checked
-                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
-                />
-                Low
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="severity_level"
-                  id="id_medium"
-                  value="medium"
-                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
-                />
-                Medium
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="severity_level"
-                  id="id_high"
-                  value="high"
-                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
-                />
-                High
-              </label>
-            </div>
-            <span class="text-sm text-red-600 hidden" id="error"
-              >Option has to be selected</span
-            >
-          </fieldset>
-
+        {% csrf_token %}
+        <h1 class="text-3xl font-bold mb-6 text-gray-600">Improper Attire</h1>
+        <div class="buttonInside flex items-center mb-4">
+          <input
+            id="id_student_id"
+            name="student_id"
+            maxlength="16"
+            class="form-control flex-1 mr-2 p-2 border border-gray-300 rounded"
+            placeholder="Student ID"
+            type="text"
+            required
+          />
           <button
-            id="button"
-            type="submit"
-            class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-blue-500 hover:bg-blue-600 hover:shadow-lg focus:outline-none"
+            id="openScanner"
+            type="button"
+            onclick="openBarcodeScanner()"
+            class="bg-blue-500 text-white p-2 rounded"
           >
-            Submit Complaint
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              class="w-6 h-6"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5zm0 9.75c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5zm9.75-9.75c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6.75 6.75h.75v.75h-.75v-.75zm0 9.75h.75v.75h-.75v-.75zm9.75-9.75h.75v.75h-.75v-.75zm-3 6.75h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm6-6h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm-3-3h.75v.75h-.75v-.75z"
+              ></path>
+            </svg>
           </button>
-        </form>
-      </div>
+        </div>
+        <div
+          id="scanner-container"
+          hidden
+          style="height: 240px !important"
+        ></div>
+        {{ form.complaint_type|add_class:'mb-6 block w-full rounded-md border-0 p-3 pr-10 text-gray-700 ring-1 ring-inset ring-gray-300 sm:text-md sm:leading-6' }}
+        <button class="w-full bg-blue-500 text-white p-2 rounded" type="submit">
+          Submit
+        </button>
+      </form>
     </div>
     <script>
       const scannerContainer = document.getElementById("scanner-container");
@@ -184,7 +97,7 @@
               return;
             }
             Quagga.start();
-            scannerContainer.classList.remove("hidden");
+            scannerContainer.hidden = false;
           }
         );
 
@@ -192,7 +105,7 @@
           Quagga.stop();
           document.getElementById("id_student_id").value =
             result.codeResult.code;
-          scannerContainer.classList.add("hidden");
+          scannerContainer.hidden = true;
         });
       }
     </script>
