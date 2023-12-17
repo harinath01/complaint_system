@@ -23,7 +23,8 @@ The **Complaint Management System** is a web application designed to handle comp
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/complaint-management-system.git```
+   git clone https://github.com/your-username/complaint-management-system.git
+   ```
 
 2. **Install dependencies**:
 
