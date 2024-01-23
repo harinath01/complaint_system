@@ -5,15 +5,23 @@ from django.contrib.auth.models import User
 class Complaint(models.Model):
     DEPARTMENT_CHOICES = [
         ('B.E.', [
-            ('B.E_AGRI', 'B.E - Agricultural Engineering'),
-            ('B.E_AI&DS', 'B.E - Artificial Intelligence and Data Science'),
-            ('B.E_BME', 'B.E - Biomedical Engineering'),
-            ('B.E_BT', 'B.E - Biotechnology'),
+            ('B.E_BME', 'B.E - Bio medical Engineering'),
             ('B.E_CSE', 'B.E - Computer Science and Engineering'),
             ('B.E_CSE_B', 'B.E - Computer Science and Engineering (RL)'),
             ('B.E_ECE', 'B.E - Electronics and Communication Engineering'),
-            ('B.E_IT', 'B.E - Information Technology'),
             ('B.E_MECH', 'B.E - Mechanical Engineering'),
+        ]),
+        ('B.Tech', [
+            ('BTECH_AE', 'B.Tech - Agricultural Engineering'),
+            ('BTECH_AI&DS', 'B.Tech - Artificial Intelligence and Data Science'),
+            ('BTECH_BT', 'B.Tech - Bio-Technology'),
+            ('BTECH_IT', 'B.Tech - Information Technology'),
+        ]),
+        ('B.Sc.', [
+            ('BSC_IT', 'B.Sc. Information Technology'),
+            ('BSC_CY', 'B.Sc. Cybersecurity'),
+            ('BSC_AI&DS', 'B.Sc. Artificial Intelligence and Data Science'),
+            ('BSC_CS', 'B.Sc. Computer Science'),
         ]),
         ('S&H', [
             ('S&H_AGRI', 'S&H - Agricultural'),
@@ -26,18 +34,6 @@ class Complaint(models.Model):
             ('S&H_ECE', 'S&H - Electronics and Communication Engineering'),
             ('S&H_MECH', 'S&H - Mechanical Engineering'),
             ('S&H_IT', 'S&H - Information Technology'),
-        ]),
-        ('B.Sc.', [
-            ('BSC_IT', 'B.Sc. Information Technology'),
-            ('BSC_CY', 'B.Sc. Cybersecurity'),
-            ('BSC_AI&DS', 'B.Sc. Artificial Intelligence and Data Science'),
-            ('BSC_CS', 'B.Sc. Computer Science'),
-        ]),
-        ('B.Tech', [
-            ('BTECH_AE', 'B.Tech - Agricultural Engineering'),
-            ('BTECH_AI&DS', 'B.Tech - Artificial Intelligence and Data Science'),
-            ('BTECH_BT', 'B.Tech - Bio-Technology'),
-            ('BTECH_IT', 'B.Tech - Information Technology'),
         ]),
     ]
 
