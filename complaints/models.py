@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Complaint(models.Model):
     DEPARTMENT_CHOICES = [
-        ('B.E', [
+        ('B.E./B.Tech.', [
             ('B.E_AGRI', 'B.E - Agricultural Engineering'),
             ('B.E_AI&DS', 'B.E - Artificial Intelligence and Data Science'),
             ('B.E_BME', 'B.E - Biomedical Engineering'),
@@ -16,7 +16,7 @@ class Complaint(models.Model):
             ('B.E_MECH', 'B.E - Mechanical Engineering'),
         ]),
         ('S&H', [
-            ('S&H_AGRI', 'S&H - Agriculture'),
+            ('S&H_AGRI', 'S&H - Agricultural'),
             ('S&H_AIML', 'S&H - Artificial Intelligence and Machine Learning'),
             ('S&H_AI&DS', 'S&H - Artificial Intelligence and Data Science'),
             ('S&H_BME', 'S&H - Biomedical Engineering'),
@@ -27,11 +27,11 @@ class Complaint(models.Model):
             ('S&H_MECH', 'S&H - Mechanical Engineering'),
             ('S&H_IT', 'S&H - Information Technology'),
         ]),
-        ('BSC', [
-            ('BSC_IT', 'BSC - IT'),
-            ('BSC_CY', 'BSC - Cybersecurity'),
-            ('BSC_AI&DS', 'BSC - Artificial Intelligence and Data Science'),
-            ('BSC_CS', 'BSC - Computer Science'),
+        ('B.Sc.', [
+            ('BSC_IT', 'B.Sc. Information Technology'),
+            ('BSC_CY', 'B.Sc. Cybersecurity'),
+            ('BSC_AI&DS', 'B.Sc. Artificial Intelligence and Data Science'),
+            ('BSC_CS', 'B.Sc. Computer Science'),
         ]),
     ]
 
