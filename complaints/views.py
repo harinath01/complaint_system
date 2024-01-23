@@ -24,7 +24,7 @@ def create_complaint(request):
             else:
                 form.save(staff=request.user)
                 complaints_count = Complaint.objects.filter(staff=request.user, student_id=student_id).count()
-                if complaints_count >= 3:
+                if complaints_count >= 2:
                     messages.error(request, f'Complaint submitted successfully! Student reached {complaints_count} complaints')
                 else:
                     messages.success(request, 'Complaint submitted successfully!')
