@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  complaint_system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/workspace:delegated
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_NAME=complaint_system
+      - DATABASE_USER=complaint_system
+      - DATABASE_PASSWORD=complaint_system
+      - DATABASE_HOST=db
+    networks:
+      - default
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=complaint_system
+      - MYSQL_USER=complaint_system
+      - MYSQL_PASSWORD=complaint_system
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 5s
+
+volumes:
+  db_data:
+networks:
+  default:
+    driver: bridge
+
